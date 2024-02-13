@@ -88,7 +88,7 @@ export default function Home() {
         <p>Factory counter: {clickFactoryCounter}</p>
       )}
 
-      {pressedCounter >= 60 && !promoUsed && (
+      {pressedCounter >= 500 && !promoUsed && (
         <div>
           <p>
             We love FREE stuff!
@@ -107,7 +107,6 @@ export default function Home() {
           </button>
         </div>
       )}
-
     </main>
   );
 }
