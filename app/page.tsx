@@ -9,6 +9,8 @@ export default function Home() {
   const [clickFactoryCounter, setClickFactoryCounter] = useState(0);
   const [clickFactoryPrice, setClickFactoryPrice] = useState(100);
   const [showBuyFactoryButton, setShowBuyFactoryButton] = useState(false);
+  const [promocodeInput, setPromoCodeInput] = useState('');
+  const [promoUsed, setPromoUsed] = useState(false);
 
   const handleButtonClick = () => {
     setButtonClicked(true);
@@ -28,6 +30,13 @@ export default function Home() {
       setPressedCounter(pressedCounter-clickFactoryPrice);
       setClickFactoryCounter(clickFactoryCounter + 1);
       setClickFactoryPrice(clickFactoryPrice+(100*(clickFactoryCounter+1)));
+    }
+  };
+
+  const handlePromocode = () => {
+    setPromoUsed(true);
+    if (promocodeInput.trim().toLowerCase() === 'free') {
+      setPressedCounter(prevCounter => prevCounter + 1000);
     }
   };
 
@@ -78,6 +87,27 @@ export default function Home() {
       {clickFactoryCounter >= 1 && (
         <p>Factory counter: {clickFactoryCounter}</p>
       )}
+
+      {pressedCounter >= 60 && !promoUsed && (
+        <div>
+          <p>
+            We love FREE stuff!
+            Enter promocode:</p>
+          <input
+            className='text-black' 
+            type='text'
+            value={promocodeInput}
+            onChange={(e) => setPromoCodeInput(e.target.value)}
+          />
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
+            onClick={handlePromocode}
+          >
+            Validate
+          </button>
+        </div>
+      )}
+
     </main>
   );
 }
